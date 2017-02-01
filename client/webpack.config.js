@@ -1,6 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 //var ManifestPlugin = require('extract-text-webpack-plugin')
 
 const env = process.env.NODE_ENV || 'development';
@@ -19,7 +19,9 @@ module.exports = {
     output: {
         path: path.join(__dirname, '../public/assets/'),
         filename: `${fileName}.js`,
-        publicPath: '/assets/'
+        publicPath: '/assets/',
+        hotUpdateChunkFilename: 'hot/hot-update.js',
+        hotUpdateMainFilename: 'hot/hot-update.json'
     },
     plugins: [
         // CSSを切り出す
