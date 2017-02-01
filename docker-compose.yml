@@ -1,0 +1,11 @@
+version: '2'
+services:
+  vue:
+    build: ./client
+    ports:
+      - 8080:8080
+    #command: webpack -w --config ./config/webpack.config.js
+    #command: webpack-dev-server --config ./config/webpack.config.js --host=0.0.0.0 --open --inline --hot --progress --colors  --history-api-fallback
+    volumes:
+      - .:/app
+      - /app/client/node_modules
