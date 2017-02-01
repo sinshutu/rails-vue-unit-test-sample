@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="todos">
     <ul>
       <li v-for="(todo, index) in todos">
         {{ todo.title }}

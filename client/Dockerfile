@@ -6,5 +6,5 @@ ENV PATH /app/client/node_modules/.bin:$PATH
 
 COPY package.json /app/client/package.json
 
-RUN mkdir /app/client/node_modules &&\
+RUN npm install --global npm@4.1.2 &&\
 npm install
