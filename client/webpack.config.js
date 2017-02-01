@@ -1,5 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+//var ManifestPlugin = require('extract-text-webpack-plugin')
 
 const env = process.env.NODE_ENV || 'development';
 const fileName = (env == 'development') ? '[name]' : '[name]-[hash]';
@@ -19,6 +21,21 @@ module.exports = {
         filename: `${fileName}.js`,
         publicPath: '/assets/'
     },
+    plugins: [
+        // CSSを切り出す
+        new ExtractTextPlugin({
+            filename: `${fileName}.css`,
+            allChunks: true,
+        }),
+
+        // JavaScript/CSS変更時に自動でリロードする
+        new webpack.HotModuleReplacementPlugin()
+
+        // 本番環境のキャッシュ対策としてハッシュ値を生成する
+        //new ManifestPlugin({
+        //    fileName: 'webpack.manifest.json'
+        //})
+    ],
     module: {
         rules: [
             {
@@ -28,7 +45,6 @@ module.exports = {
                     loaders: {
                         'scss': 'vue-style-loader!css-loader!sass-loader',
                     }
-                    // other vue-loader options go here
                 }
             },
             // JavaScriptをBabelでトランスパイルする
@@ -40,11 +56,11 @@ module.exports = {
             // SCSS/CSSを別ファイルに切り出す
             {
                 test: /\.s?css$/,
-                loader: ExtractTextPlugin.extract('css!sass')
+                loader: 'css-loader!sass-loader'
             },
             // 画像を別ファイルに切り出す
             {
-                test: /\.(gif|jpg|png)$/,
+                test: /\.(png|jpg|gif|svg|ttf)$/,
                 loader: 'file-loader',
                 options: {
                     name: `${fileName}.[ext]`
@@ -52,20 +68,8 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        // CSSを切り出す
-        new ExtractTextPlugin(`${fileName}.css`),
-
-        // JavaScript/CSS変更時に自動でリロードする
-        new webpack.HotModuleReplacementPlugin(),
-
-        // 本番環境のキャッシュ対策としてハッシュ値を生成する
-        new ManifestPlugin({
-            fileName: 'webpack.manifest.json'
-        })
-    ],
     resolve: {
-        extensions: ['', '.js', '.scss']
+        extensions: ['.js', '.css', '.scss']
     },
     devServer: {
         contentBase: 'public/assets',
