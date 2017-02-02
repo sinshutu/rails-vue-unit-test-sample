@@ -12,7 +12,7 @@ module.exports = {
 
     // ビルド対象となるファイル
     entry: {
-        application: './javascripts/main.js'
+        application: './javascripts/main.js',
     },
 
     // ビルド先のファイル
@@ -40,6 +40,15 @@ module.exports = {
     ],
     module: {
         rules: [
+            // eslint
+            {
+                test: /\.js$/,
+                enforce: 'pre',
+                loader: 'eslint-loader',
+                include: './javascripts',
+                exclude: /node_modules/,
+            },
+            // vue
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
@@ -58,7 +67,8 @@ module.exports = {
             // SCSS/CSSを別ファイルに切り出す
             {
                 test: /\.s?css$/,
-                loader: 'css-loader!sass-loader'
+                loader: 'style-loader!css-loader!sass-loader',
+                exclude: /node_modules/
             },
             // 画像を別ファイルに切り出す
             {
