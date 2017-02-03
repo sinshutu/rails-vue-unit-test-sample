@@ -6,5 +6,4 @@ ENV PATH /app/client/node_modules/.bin:$PATH
 
 COPY package.json /app/client/package.json
 
-RUN npm install --global npm@4.1.2 &&\
-npm install
+RUN npm install --no-progress --registry http://registry.npmjs.org/
