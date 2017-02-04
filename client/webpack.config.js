@@ -23,10 +23,10 @@ module.exports = {
     },
     plugins: [
         // CSSを切り出す
-        new ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: [{loader: 'css-loader', options: {module: true}}],
-        }),
+        //new ExtractTextPlugin.extract({
+        //    fallbackLoader: 'style-loader',
+        //    loader: [{loader: 'css-loader', options: {module: true}}],
+        //}),
 
         // JavaScript/CSS変更時に自動でリロードする
         new webpack.HotModuleReplacementPlugin(),
@@ -43,7 +43,6 @@ module.exports = {
                 test: /\.js$/,
                 enforce: 'pre',
                 loader: 'eslint-loader',
-                include: './javascripts',
                 exclude: /node_modules/,
             },
             // vue
