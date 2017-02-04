@@ -8,8 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf ../public/assets",
     "dev": "cross-env NODE_ENV=development webpack-dev-server",
-    "build": "cross-env NODE_ENV=production webpack --no-progress --hide-modules -w -d"
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --no-progress --hide-modules -p"
   },
   "keywords": [],
   "author": "",

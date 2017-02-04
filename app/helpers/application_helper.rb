@@ -5,7 +5,6 @@ module ApplicationHelper
     end
 
     manifest = Rails.application.config.assets.webpack_manifest
-
     if manifest && manifest[path].present?
       path = manifest[path]
     end

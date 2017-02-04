@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-//var ManifestPlugin = require('extract-text-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 const env = process.env.NODE_ENV || 'development';
 const fileName = (env == 'development') ? '[name]' : '[name]-[hash]';
@@ -20,23 +20,21 @@ module.exports = {
         path: path.join(__dirname, '../public/assets/'),
         filename: `${fileName}.js`,
         publicPath: '/assets/',
-        hotUpdateChunkFilename: 'hot/hot-update.js',
-        hotUpdateMainFilename: 'hot/hot-update.json'
     },
     plugins: [
         // CSSを切り出す
-        new ExtractTextPlugin({
-            filename: `${fileName}.css`,
-            allChunks: true,
+        new ExtractTextPlugin.extract({
+            fallbackLoader: 'style-loader',
+            loader: [{loader: 'css-loader', options: {module: true}}],
         }),
 
         // JavaScript/CSS変更時に自動でリロードする
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
 
         // 本番環境のキャッシュ対策としてハッシュ値を生成する
-        //new ManifestPlugin({
-        //    fileName: 'webpack.manifest.json'
-        //})
+        new ManifestPlugin({
+            fileName: 'webpack.manifest.json'
+        })
     ],
     module: {
         rules: [
