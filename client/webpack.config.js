@@ -45,6 +45,13 @@ module.exports = {
                 loader: 'eslint-loader',
                 exclude: /node_modules/,
             },
+            // scss lint
+            {
+                test: /\.s?css$/,
+                enforce: 'pre',
+                loader: 'scss-lint-loader',
+                exclude: /node_modules/,
+            },
             // vue
             {
                 test: /\.vue$/,
